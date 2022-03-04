@@ -319,12 +319,14 @@ def DS(node, goal):
             print("Current Node : "+str(o))
             p=0
         CL.append(cn.d)
+        if cn.d == goal :
+        	return cn,CL
         for a in action_set:
             NewNode = move(a,cn)
             if NewNode != None:
-                if NewNode.d == goal :
-                    CL.append(NewNode.d)
-                    return NewNode,CL
+                # if NewNode.d == goal :
+                #     CL.append(NewNode.d)
+                #     return NewNode,CL
                 if (NewNode.d not in CL):
                     if(NewNode.d not in OL):
                         Q.append(NewNode)
@@ -364,7 +366,7 @@ def get_input():
 		print('INVALID Y SETTING INITIAL Y AS 0')
 		y=0
 	
-	if (m[249-(y)][x] == 1):
+	if detect(x,y):
 		print('INVALID POINTS SETTING INITIAL POINT AS [0,0]')
 		x=0
 		y=0
@@ -381,7 +383,7 @@ def get_input():
 		print('INVALID Y SETTING GOAL Y AS 249')
 		yg=0
 	
-	if (m[249-(yg)][xg] == 1):
+	if detect(xg,yg):
 		print('INVALID POINTS SETTING INITIAL POINT AS [399,249]')
 		xg=399
 		yg=249
