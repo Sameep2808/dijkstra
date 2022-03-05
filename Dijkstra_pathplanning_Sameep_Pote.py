@@ -392,19 +392,21 @@ def get_input():
 
 def Vi(P,C):
 	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-	out = cv2.VideoWriter("Output.mp4", fourcc, 20.0, (400,250))
+	out = cv2.VideoWriter("Output.mp4", fourcc, 1500, (400,250))
 	for x,y in C:
 		am[249-(y)][x] = [255,255,255]
 		out.write(np.uint8(am))
-		cv2.imshow("Zeros matx", am)
+		cv2.imshow("Output", am)
 		cv2.waitKey(1)
 	for n in P:
 		x,y = n.d 
 		am[249-(y)][x] = [0,0,255]
 		out.write(np.uint8(am))
-		cv2.imshow("Zeros matx", am)
+		cv2.imshow("Output", am)
 		cv2.waitKey(1)
-	cv2.imshow("Zeros matx", am)
+	cv2.imshow("Final Path", am)
+	for i in range(0,10):
+		out.write(np.uint8(am))
 	cv2.waitKey(0)
 	out.release()
 	cv2.destroyAllWindows()
@@ -423,4 +425,3 @@ if __name__ == '__main__':
 	#print(et-st)
 	p=reverse_path(F)
 	Vi(p,C)
-	

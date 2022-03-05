@@ -29,8 +29,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
+## Output
 
-## Overview
+### Inputs
+Start Point = (0,0)
+Goal = (399,249)
+
+### Visualization
+
+### Path
 
 ## Dependencies and Technologies used
 
