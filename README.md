@@ -38,5 +38,26 @@ SOFTWARE.
 - Operating System : Ubuntu 20.04
 - Packages : OpenCV, numpy
 
-### Run
+## Run
+
+1. Download the repository in src folder of catkin workspace
+```
+git clone https://github.com/Sameep2808/dijkstra.git
+```
+2. Run the python file
+```
+python3 Dijkstra_pathplanning_Sameep_Pote.py 
+```
+3. Enter the Initial And goal values
+```
+Enter Initial X (Range: 0 - 399):
+0
+Enter Initial Y (Range: 0 - 249):
+0
+Enter Goal X (Range: 0 - 399):
+399
+Enter Goal Y (Range: 0 - 249):
+249
+```
+4. Wait For the Output
 

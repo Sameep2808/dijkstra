@@ -46,9 +46,9 @@ def create_map():
             if (eq(36,65,115,40,x,y,1) and eq(36,65,105,150,x,y,2) and (eq(115,40,80,70,x,y,2) and (y <= 250-180))):
                 m[y,x]=1
                 am[y,x]=[255,0,0]
-    #cv2.imshow("Zeros matx", m)
-    #cv2.waitKey(0) 
-    #cv2.destroyAllWindows()
+    # cv2.imshow("Zeros matx", m)
+    # cv2.waitKey(0) 
+    # cv2.destroyAllWindows()
     return m,am
 
 
@@ -67,40 +67,40 @@ class Node:
 
 def detect(x,y):
 	#global cl
-	
-	if (250 - (y+cl) > 0):
-		if (m[249-(y+cl)][x] == 1):
-			#print("1")
-			return True
-	if (250 - (y-cl) <= 249):
-		if (m[249-(y-cl)][x] == 1):
-			#print("2")
-			return True
-	if ( x+cl < 399 ):
-		if (m[249-y][x+cl] == 1):
-			#print("3")
-			return True
-	if ( x-cl > 0 ):
-		if (m[249-y][x-cl] == 1):
-			#print("4")
-			return True
-		
-	if (250 - (y+cl) > 0) and ( x+cl < 399 ):
-		if (m[249-(y+cl)][x+cl] == 1):
-			#print("1")
-			return True
-	if (250 - (y+cl) > 0) and ( x-cl > 0 ):
-		if (m[249-(y+cl)][x-cl] == 1):
-			#print("2")
-			return True
-	if (250 - (y-cl) <= 249) and ( x+cl < 399 ):
-		if (m[249-(y-cl)][x+cl] == 1):
-			#print("2")
-			return True
-	if (250 - (y-cl) <= 249) and ( x-cl > 0 ):
-		if (m[249-(y-cl)][x-cl] == 1):
-			#print("2")
-			return True
+	for cl in range(0,5):
+		if (250 - (y+cl) > 0):
+			if (m[249-(y+cl)][x] == 1):
+				#print("1")
+				return True
+		if (250 - (y-cl) <= 249):
+			if (m[249-(y-cl)][x] == 1):
+				#print("2")
+				return True
+		if ( x+cl < 399 ):
+			if (m[249-y][x+cl] == 1):
+				#print("3")
+				return True
+		if ( x-cl > 0 ):
+			if (m[249-y][x-cl] == 1):
+				#print("4")
+				return True
+			
+		if (250 - (y+cl) > 0) and ( x+cl < 399 ):
+			if (m[249-(y+cl)][x+cl] == 1):
+				#print("1")
+				return True
+		if (250 - (y+cl) > 0) and ( x-cl > 0 ):
+			if (m[249-(y+cl)][x-cl] == 1):
+				#print("2")
+				return True
+		if (250 - (y-cl) <= 249) and ( x+cl < 399 ):
+			if (m[249-(y-cl)][x+cl] == 1):
+				#print("2")
+				return True
+		if (250 - (y-cl) <= 249) and ( x-cl > 0 ):
+			if (m[249-(y-cl)][x-cl] == 1):
+				#print("2")
+				return True
 	
 	return False
 		
@@ -354,13 +354,13 @@ def reverse_path(node):
 def get_input():
 	global cl
 	
-	print('Enter Initial X:')
+	print('Enter Initial X (Range: 0 - 399):')
 	x = int(input())
 	if (x<0) or (x>399):
 		print('INVALID X SETTING INITIAL X AS 0')
 		x=0
 		
-	print('Enter Initial Y:')
+	print('Enter Initial Y (Range: 0 - 249):')
 	y = int(input())
 	if (y<0) or (y>249):
 		print('INVALID Y SETTING INITIAL Y AS 0')
@@ -371,13 +371,13 @@ def get_input():
 		x=0
 		y=0
 		
-	print('Enter Goal X:')
+	print('Enter Goal X (Range: 0 - 399):')
 	xg = int(input())
 	if (xg<0) or (xg>399):
 		print('INVALID X SETTING GOAL X AS 399')
 		xg=399
 		
-	print('Enter Goal Y:')
+	print('Enter Goal Y (Range: 0 - 249):')
 	yg = int(input())
 	if (yg<0) or (yg>249):
 		print('INVALID Y SETTING GOAL Y AS 249')
@@ -391,17 +391,23 @@ def get_input():
 	return [x,y],[xg,yg]
 
 def Vi(P,C):
+	fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+	out = cv2.VideoWriter("Output.mp4", fourcc, 20.0, (400,250))
 	for x,y in C:
 		am[249-(y)][x] = [255,255,255]
+		out.write(np.uint8(am))
 		cv2.imshow("Zeros matx", am)
 		cv2.waitKey(1)
 	for n in P:
 		x,y = n.d 
 		am[249-(y)][x] = [0,0,255]
+		out.write(np.uint8(am))
 		cv2.imshow("Zeros matx", am)
 		cv2.waitKey(1)
 	cv2.imshow("Zeros matx", am)
 	cv2.waitKey(0)
+	out.release()
+	cv2.destroyAllWindows()
 
 if __name__ == '__main__':
 	st = time.time()
@@ -414,7 +420,7 @@ if __name__ == '__main__':
 	root = Node([start[0],start[1]], 0 , None)
 	F,C = DS(root,goal)
 	et = time.time()
-	print(et-st)
+	#print(et-st)
 	p=reverse_path(F)
 	Vi(p,C)
 	
